@@ -1,22 +1,19 @@
-import mongoose from 'mongoose';
-import { createApp } from '../src/server/app';
+const mongoose = require('mongoose');
+const { createApp } = require('../dist/server/app');
 
 let isConnected = false;
-
 const app = createApp();
 
-export default async function handler(req: any, res: any) {
-  // Lazily connect to MongoDB if connection string provided
+module.exports = async (req, res) => {
   if (!isConnected && process.env.MONGODB_URI) {
     try {
       await mongoose.connect(process.env.MONGODB_URI, {
         serverSelectionTimeoutMS: 5000,
       });
       isConnected = true;
-    } catch (err: any) {
+    } catch (err) {
       console.warn('MongoDB connection failed in serverless handler:', err.message);
     }
   }
-
   return app(req, res);
-}
+};
