@@ -9502,7 +9502,7 @@ var LLMClient = class {
   openrouterKey = null;
   constructor() {
     this.provider = (process.env.LLM_PROVIDER || "mock").toLowerCase();
-    this.model = process.env.LLM_MODEL || "gemini-2.5-flash";
+    this.model = process.env.LLM_MODEL || "gemini-flash-lite-latest";
     if (process.env.GEMINI_API_KEY) {
       this.geminiClient = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
     }
@@ -9529,8 +9529,8 @@ var LLMClient = class {
    * Main completion call with exponential backoff for rate limits and transient errors
    */
   async complete(messages, options = { temperature: 0.2, responseFormat: "json" }) {
-    const maxRetries = 4;
-    let baseDelay = 2e3;
+    const maxRetries = 1;
+    let baseDelay = 800;
     for (let attempt = 0; attempt <= maxRetries; attempt++) {
       try {
         if (this.provider === "gemini" && this.geminiClient) {
@@ -9975,9 +9975,9 @@ var CompanyCrawler = class {
    * Main crawling engine
    */
   async crawl(startUrl, options = {}) {
-    const maxPages = options.maxPages ?? 4;
-    const timeoutMs = options.timeoutMs ?? 7e3;
-    const maxContentBytes = options.maxContentBytes ?? 2 * 1024 * 1024;
+    const maxPages = options.maxPages ?? 2;
+    const timeoutMs = options.timeoutMs ?? 3500;
+    const maxContentBytes = options.maxContentBytes ?? 1024 * 1024;
     const allowLocalhost = options.allowLocalhost ?? true;
     const result = {
       pages: [],
@@ -10005,7 +10005,7 @@ var CompanyCrawler = class {
       const robotsUrl = `${parsedStart.protocol}//${parsedStart.host}/robots.txt`;
       const robotsRes = await import_axios2.default.get(robotsUrl, {
         headers: { "User-Agent": this.userAgent },
-        timeout: 3e3,
+        timeout: 1500,
         validateStatus: () => true
       });
       if (robotsRes.status === 200 && typeof robotsRes.data === "string") {
@@ -10984,8 +10984,8 @@ var GenerationPipeline = class {
     progress(3, "Crawling Company Website", `Discovering and ranking links on ${companyUrl}...`);
     const crawlResult = await this.crawler.crawl(companyUrl, {
       allowLocalhost: options.allowLocalhost ?? true,
-      maxPages: 4,
-      timeoutMs: 8e3
+      maxPages: 2,
+      timeoutMs: 3e3
     });
     warnings.push(...crawlResult.notes);
     progress(4, "Investigating Interview Process", "Synthesizing company hiring patterns and public interview discussions.");
@@ -10993,21 +10993,23 @@ var GenerationPipeline = class {
     progress(5, "Compiling Company Brief", "Assembling verified summary and what they do.");
     const companyBrief = researchFindings.brief;
     progress(6, "Finalizing Role Breakdown", `Role: ${role.title} (${role.seniority}).`);
-    progress(7, "Generating Category Questions", "Generating technical, behavioural, system-design, and company-fit questions.");
+    progress(7, "Generating Questions & Flashcards", "Generating technical, behavioural, system-design, and flashcards concurrently.");
     const categories = ["technical", "behavioural", "system-design", "company-fit"];
-    let initialQuestions = [];
-    for (const cat of categories) {
-      const catQuestions = await this.questionGenerator.generateQuestionsForCategory(
-        cat,
-        role.requirements,
-        companyBrief,
-        researchFindings.hiringProcessSummary,
-        initialQuestions.length
-      );
-      initialQuestions = initialQuestions.concat(catQuestions);
-    }
-    progress(8, "Generating Flashcards", "Synthesizing high-yield review cards mapped to requirements.");
-    const flashcards = await this.questionGenerator.generateFlashcards(role.requirements, initialQuestions);
+    const [categoryQuestionBatches, flashcards] = await Promise.all([
+      Promise.all(
+        categories.map(
+          (cat, idx) => this.questionGenerator.generateQuestionsForCategory(
+            cat,
+            role.requirements,
+            companyBrief,
+            researchFindings.hiringProcessSummary,
+            idx * 4
+          )
+        )
+      ),
+      this.questionGenerator.generateFlashcards(role.requirements, [])
+    ]);
+    const initialQuestions = categoryQuestionBatches.flat();
     progress(9, "Deterministic Coverage Check", "Running arithmetic set-difference coverage validation.");
     const initialCoverage = CoverageChecker.analyze(role.requirements, initialQuestions);
     progress(10, "Second Pass Gap Closing", `Identified ${initialCoverage.uncoveredRequirementIds.length} uncovered requirements. Closing gaps...`);

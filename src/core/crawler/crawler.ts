@@ -120,9 +120,9 @@ export class CompanyCrawler {
    * Main crawling engine
    */
   public async crawl(startUrl: string, options: CrawlerOptions = {}): Promise<CrawlResult> {
-    const maxPages = options.maxPages ?? 4;
-    const timeoutMs = options.timeoutMs ?? 7000;
-    const maxContentBytes = options.maxContentBytes ?? 2 * 1024 * 1024; // 2MB
+    const maxPages = options.maxPages ?? 2;
+    const timeoutMs = options.timeoutMs ?? 3500;
+    const maxContentBytes = options.maxContentBytes ?? 1024 * 1024; // 1MB
     const allowLocalhost = options.allowLocalhost ?? true;
 
     const result: CrawlResult = {
@@ -149,13 +149,13 @@ export class CompanyCrawler {
       return result;
     }
 
-    // Check robots.txt (skip if local or times out)
+    // Check robots.txt (fast timeout 1500ms)
     let robots: any = null;
     try {
       const robotsUrl = `${parsedStart.protocol}//${parsedStart.host}/robots.txt`;
       const robotsRes = await axios.get(robotsUrl, {
         headers: { 'User-Agent': this.userAgent },
-        timeout: 3000,
+        timeout: 1500,
         validateStatus: () => true,
       });
       if (robotsRes.status === 200 && typeof robotsRes.data === 'string') {

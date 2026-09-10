@@ -72,8 +72,8 @@ export class GenerationPipeline {
     progress(3, 'Crawling Company Website', `Discovering and ranking links on ${companyUrl}...`);
     const crawlResult = await this.crawler.crawl(companyUrl, {
       allowLocalhost: options.allowLocalhost ?? true,
-      maxPages: 4,
-      timeoutMs: 8000,
+      maxPages: 2,
+      timeoutMs: 3000,
     });
     warnings.push(...crawlResult.notes);
 
@@ -88,25 +88,26 @@ export class GenerationPipeline {
     // STEP 6: Finalize Role Breakdown
     progress(6, 'Finalizing Role Breakdown', `Role: ${role.title} (${role.seniority}).`);
 
-    // STEP 7: Generate category-isolated questions
-    progress(7, 'Generating Category Questions', 'Generating technical, behavioural, system-design, and company-fit questions.');
+    // STEP 7 & 8: Generate category-isolated questions and flashcards in parallel
+    progress(7, 'Generating Questions & Flashcards', 'Generating technical, behavioural, system-design, and flashcards concurrently.');
     const categories: QuestionCategory[] = ['technical', 'behavioural', 'system-design', 'company-fit'];
-    let initialQuestions: any[] = [];
 
-    for (const cat of categories) {
-      const catQuestions = await this.questionGenerator.generateQuestionsForCategory(
-        cat,
-        role.requirements,
-        companyBrief,
-        researchFindings.hiringProcessSummary,
-        initialQuestions.length
-      );
-      initialQuestions = initialQuestions.concat(catQuestions);
-    }
+    const [categoryQuestionBatches, flashcards] = await Promise.all([
+      Promise.all(
+        categories.map((cat, idx) =>
+          this.questionGenerator.generateQuestionsForCategory(
+            cat,
+            role.requirements,
+            companyBrief,
+            researchFindings.hiringProcessSummary,
+            idx * 4
+          )
+        )
+      ),
+      this.questionGenerator.generateFlashcards(role.requirements, []),
+    ]);
 
-    // STEP 8: Generate Flashcards
-    progress(8, 'Generating Flashcards', 'Synthesizing high-yield review cards mapped to requirements.');
-    const flashcards = await this.questionGenerator.generateFlashcards(role.requirements, initialQuestions);
+    const initialQuestions = categoryQuestionBatches.flat();
 
     // STEP 9: Deterministic Coverage Checking (in CODE, NOT LLM)
     progress(9, 'Deterministic Coverage Check', 'Running arithmetic set-difference coverage validation.');

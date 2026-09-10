@@ -31,7 +31,7 @@ export class LLMClient {
 
   constructor() {
     this.provider = (process.env.LLM_PROVIDER || 'mock').toLowerCase();
-    this.model = process.env.LLM_MODEL || 'gemini-2.5-flash';
+    this.model = process.env.LLM_MODEL || 'gemini-flash-lite-latest';
 
     if (process.env.GEMINI_API_KEY) {
       this.geminiClient = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
@@ -67,8 +67,8 @@ export class LLMClient {
     messages: LLMMessage[],
     options: LLMOptions = { temperature: 0.2, responseFormat: 'json' }
   ): Promise<string> {
-    const maxRetries = 4;
-    let baseDelay = 2000; // 2 seconds
+    const maxRetries = 1;
+    let baseDelay = 800;
 
     for (let attempt = 0; attempt <= maxRetries; attempt++) {
       try {
