@@ -19,7 +19,7 @@ yarn-error.log*
 .pnpm-debug.log*
 
 # Test coverage
-coverage/
+/coverage/
 
 # OS / IDE
 .DS_Store

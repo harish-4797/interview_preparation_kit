@@ -120,7 +120,7 @@ export class GenerationPipeline {
       companyBrief,
       this.questionGenerator,
       3, // up to 3 passes
-      (pass, uncovered) => {
+      (pass: number, uncovered: number) => {
         progress(10, 'Second Pass Gap Closing', `Pass ${pass}: ${uncovered} requirements pending coverage.`);
       }
     );
