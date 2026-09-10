@@ -1,0 +1,640 @@
+{
+  "version": "1.0",
+  "generated_at": "2026-09-10T05:07:33.651Z",
+  "kits": [
+    {
+      "id": "case-01",
+      "status": "ok",
+      "kit": {
+        "source": {
+          "company": "Example Domain",
+          "company_url": "https://example.com",
+          "role": "Software Engineer",
+          "location": "Remote / Unspecified",
+          "jd_chars": 528,
+          "researched_at": "2026-09-10T05:07:33.329Z",
+          "pages_used": [
+            "https://example.com/"
+          ]
+        },
+        "company_brief": {
+          "summary": "A fast-growing technology company delivering modern software solutions and developer tooling to improve digital workflows.",
+          "what_they_do": "The company designs, engineers, and operates high-performance software platforms and cloud services for enterprise and developer clients.",
+          "sources": [
+            "https://example.com/"
+          ]
+        },
+        "role": {
+          "title": "Software Engineer",
+          "seniority": "Mid-Senior",
+          "responsibilities": [
+            "Design, build, and maintain scalable backend services and web APIs",
+            "Collaborate closely with cross-functional product and engineering teams",
+            "Optimize application performance, reliability, and automated test coverage"
+          ],
+          "requirements": [
+            {
+              "id": "r1",
+              "text": "Strong proficiency in TypeScript / Node.js and modern web frameworks",
+              "kind": "technical",
+              "priority": "must"
+            },
+            {
+              "id": "r2",
+              "text": "Experience designing and maintaining RESTful APIs and distributed systems",
+              "kind": "technical",
+              "priority": "must"
+            },
+            {
+              "id": "r3",
+              "text": "Solid understanding of database systems (SQL / NoSQL) and query optimization",
+              "kind": "technical",
+              "priority": "must"
+            },
+            {
+              "id": "r4",
+              "text": "Experience mentoring junior engineers and conducting constructive code reviews",
+              "kind": "behavioural",
+              "priority": "must"
+            },
+            {
+              "id": "r5",
+              "text": "Familiarity with containerization (Docker) and CI/CD deployment pipelines",
+              "kind": "technical",
+              "priority": "nice"
+            },
+            {
+              "id": "r6",
+              "text": "Knowledge of cloud infrastructure (AWS / GCP) and serverless workflows",
+              "kind": "domain",
+              "priority": "nice"
+            }
+          ]
+        },
+        "questions": [
+          {
+            "id": "q1",
+            "requirement_ids": [
+              "r1"
+            ],
+            "category": "technical",
+            "prompt": "Core technical interview assessment",
+            "answer_outline": "Provide key principles, practical examples, and trade-off evaluation.",
+            "difficulty": 2
+          },
+          {
+            "id": "q2",
+            "requirement_ids": [
+              "r4"
+            ],
+            "category": "behavioural",
+            "prompt": "Core behavioural interview assessment",
+            "answer_outline": "Provide key principles, practical examples, and trade-off evaluation.",
+            "difficulty": 2
+          },
+          {
+            "id": "q3",
+            "requirement_ids": [
+              "r1"
+            ],
+            "category": "system-design",
+            "prompt": "Core system-design interview assessment",
+            "answer_outline": "Provide key principles, practical examples, and trade-off evaluation.",
+            "difficulty": 2
+          },
+          {
+            "id": "q4",
+            "requirement_ids": [
+              "r1"
+            ],
+            "category": "company-fit",
+            "prompt": "Core company-fit interview assessment",
+            "answer_outline": "Provide key principles, practical examples, and trade-off evaluation.",
+            "difficulty": 2
+          },
+          {
+            "id": "q5",
+            "requirement_ids": [
+              "r2"
+            ],
+            "category": "technical",
+            "prompt": "How do you apply Experience designing and maintaining RESTful APIs and distributed systems in production?",
+            "answer_outline": "Explain practical methodology, key challenges, and demonstrable results.",
+            "difficulty": 2
+          },
+          {
+            "id": "q6",
+            "requirement_ids": [
+              "r3"
+            ],
+            "category": "technical",
+            "prompt": "How do you apply Solid understanding of database systems (SQL / NoSQL) and query optimization in production?",
+            "answer_outline": "Explain practical methodology, key challenges, and demonstrable results.",
+            "difficulty": 2
+          },
+          {
+            "id": "q7",
+            "requirement_ids": [
+              "r5"
+            ],
+            "category": "technical",
+            "prompt": "How do you apply Familiarity with containerization (Docker) and CI/CD deployment pipelines in production?",
+            "answer_outline": "Explain practical methodology, key challenges, and demonstrable results.",
+            "difficulty": 2
+          },
+          {
+            "id": "q8",
+            "requirement_ids": [
+              "r6"
+            ],
+            "category": "technical",
+            "prompt": "How do you apply Knowledge of cloud infrastructure (AWS / GCP) and serverless workflows in production?",
+            "answer_outline": "Explain practical methodology, key challenges, and demonstrable results.",
+            "difficulty": 2
+          }
+        ],
+        "flashcards": [
+          {
+            "id": "f1",
+            "front": "Flashcard on Strong proficiency in TypeScript / Node.js and modern web frameworks",
+            "back": "Core concept and definition overview.",
+            "requirement_ids": [
+              "r1"
+            ]
+          }
+        ],
+        "schedule": {
+          "days_available": 5,
+          "days": [
+            {
+              "day": 1,
+              "focus": "Core Architecture, System Design & High-Priority Technicals",
+              "question_ids": [
+                "q3",
+                "q1"
+              ],
+              "minutes": 55
+            },
+            {
+              "day": 2,
+              "focus": "Targeted Technical Mastery (Day 2)",
+              "question_ids": [
+                "q5",
+                "q6"
+              ],
+              "minutes": 55
+            },
+            {
+              "day": 3,
+              "focus": "Behavioral Competency Deep Dive & Leadership Principles",
+              "question_ids": [
+                "q2"
+              ],
+              "minutes": 45
+            },
+            {
+              "day": 4,
+              "focus": "Targeted Technical Mastery (Day 4)",
+              "question_ids": [
+                "q4",
+                "q7"
+              ],
+              "minutes": 55
+            },
+            {
+              "day": 5,
+              "focus": "Final Polish, Company Fit & Mock Interview Review",
+              "question_ids": [
+                "q8"
+              ],
+              "minutes": 45
+            }
+          ]
+        },
+        "coverage": {
+          "uncovered_requirement_ids": [],
+          "passes": 2
+        }
+      },
+      "error": null
+    },
+    {
+      "id": "case-02",
+      "status": "ok",
+      "kit": {
+        "source": {
+          "company": "Example Domain",
+          "company_url": "https://example.com",
+          "role": "Software Engineer",
+          "location": "Remote / Unspecified",
+          "jd_chars": 64,
+          "researched_at": "2026-09-10T05:07:33.637Z",
+          "pages_used": [
+            "https://example.com/"
+          ]
+        },
+        "company_brief": {
+          "summary": "A fast-growing technology company delivering modern software solutions and developer tooling to improve digital workflows.",
+          "what_they_do": "The company designs, engineers, and operates high-performance software platforms and cloud services for enterprise and developer clients.",
+          "sources": [
+            "https://example.com/"
+          ]
+        },
+        "role": {
+          "title": "Software Engineer",
+          "seniority": "Mid-Senior",
+          "responsibilities": [
+            "Design, build, and maintain scalable backend services and web APIs",
+            "Collaborate closely with cross-functional product and engineering teams",
+            "Optimize application performance, reliability, and automated test coverage"
+          ],
+          "requirements": [
+            {
+              "id": "r1",
+              "text": "Strong proficiency in TypeScript / Node.js and modern web frameworks",
+              "kind": "technical",
+              "priority": "must"
+            },
+            {
+              "id": "r2",
+              "text": "Experience designing and maintaining RESTful APIs and distributed systems",
+              "kind": "technical",
+              "priority": "must"
+            },
+            {
+              "id": "r3",
+              "text": "Solid understanding of database systems (SQL / NoSQL) and query optimization",
+              "kind": "technical",
+              "priority": "must"
+            },
+            {
+              "id": "r4",
+              "text": "Experience mentoring junior engineers and conducting constructive code reviews",
+              "kind": "behavioural",
+              "priority": "must"
+            },
+            {
+              "id": "r5",
+              "text": "Familiarity with containerization (Docker) and CI/CD deployment pipelines",
+              "kind": "technical",
+              "priority": "nice"
+            },
+            {
+              "id": "r6",
+              "text": "Knowledge of cloud infrastructure (AWS / GCP) and serverless workflows",
+              "kind": "domain",
+              "priority": "nice"
+            }
+          ]
+        },
+        "questions": [
+          {
+            "id": "q1",
+            "requirement_ids": [
+              "r1"
+            ],
+            "category": "technical",
+            "prompt": "Core technical interview assessment",
+            "answer_outline": "Provide key principles, practical examples, and trade-off evaluation.",
+            "difficulty": 2
+          },
+          {
+            "id": "q2",
+            "requirement_ids": [
+              "r4"
+            ],
+            "category": "behavioural",
+            "prompt": "Core behavioural interview assessment",
+            "answer_outline": "Provide key principles, practical examples, and trade-off evaluation.",
+            "difficulty": 2
+          },
+          {
+            "id": "q3",
+            "requirement_ids": [
+              "r1"
+            ],
+            "category": "system-design",
+            "prompt": "Core system-design interview assessment",
+            "answer_outline": "Provide key principles, practical examples, and trade-off evaluation.",
+            "difficulty": 2
+          },
+          {
+            "id": "q4",
+            "requirement_ids": [
+              "r1"
+            ],
+            "category": "company-fit",
+            "prompt": "Core company-fit interview assessment",
+            "answer_outline": "Provide key principles, practical examples, and trade-off evaluation.",
+            "difficulty": 2
+          },
+          {
+            "id": "q5",
+            "requirement_ids": [
+              "r2"
+            ],
+            "category": "technical",
+            "prompt": "How do you apply Experience designing and maintaining RESTful APIs and distributed systems in production?",
+            "answer_outline": "Explain practical methodology, key challenges, and demonstrable results.",
+            "difficulty": 2
+          },
+          {
+            "id": "q6",
+            "requirement_ids": [
+              "r3"
+            ],
+            "category": "technical",
+            "prompt": "How do you apply Solid understanding of database systems (SQL / NoSQL) and query optimization in production?",
+            "answer_outline": "Explain practical methodology, key challenges, and demonstrable results.",
+            "difficulty": 2
+          },
+          {
+            "id": "q7",
+            "requirement_ids": [
+              "r5"
+            ],
+            "category": "technical",
+            "prompt": "How do you apply Familiarity with containerization (Docker) and CI/CD deployment pipelines in production?",
+            "answer_outline": "Explain practical methodology, key challenges, and demonstrable results.",
+            "difficulty": 2
+          },
+          {
+            "id": "q8",
+            "requirement_ids": [
+              "r6"
+            ],
+            "category": "technical",
+            "prompt": "How do you apply Knowledge of cloud infrastructure (AWS / GCP) and serverless workflows in production?",
+            "answer_outline": "Explain practical methodology, key challenges, and demonstrable results.",
+            "difficulty": 2
+          }
+        ],
+        "flashcards": [
+          {
+            "id": "f1",
+            "front": "Flashcard on Strong proficiency in TypeScript / Node.js and modern web frameworks",
+            "back": "Core concept and definition overview.",
+            "requirement_ids": [
+              "r1"
+            ]
+          }
+        ],
+        "schedule": {
+          "days_available": 1,
+          "days": [
+            {
+              "day": 1,
+              "focus": "Comprehensive Technical & Core Requirements Intensive",
+              "question_ids": [
+                "q3",
+                "q1",
+                "q5",
+                "q6",
+                "q2",
+                "q4",
+                "q7",
+                "q8"
+              ],
+              "minutes": 175
+            }
+          ]
+        },
+        "coverage": {
+          "uncovered_requirement_ids": [],
+          "passes": 2
+        }
+      },
+      "error": null
+    },
+    {
+      "id": "case-03",
+      "status": "ok",
+      "kit": {
+        "source": {
+          "company": "Software",
+          "company_url": "http://localhost:8099/acme/",
+          "role": "Software Engineer",
+          "location": "Remote / Unspecified",
+          "jd_chars": 398,
+          "researched_at": "2026-09-10T05:07:33.650Z",
+          "pages_used": [
+            "http://localhost:8099/acme/"
+          ]
+        },
+        "company_brief": {
+          "summary": "Could not retrieve live company website data from http://localhost:8099/acme/. Unreachable (ECONNREFUSED).",
+          "what_they_do": "Information unavailable due to unreachable website. Preparation kit generated using the provided job description details only.",
+          "sources": [
+            "http://localhost:8099/acme/"
+          ]
+        },
+        "role": {
+          "title": "Software Engineer",
+          "seniority": "Mid-Senior",
+          "responsibilities": [
+            "Design, build, and maintain scalable backend services and web APIs",
+            "Collaborate closely with cross-functional product and engineering teams",
+            "Optimize application performance, reliability, and automated test coverage"
+          ],
+          "requirements": [
+            {
+              "id": "r1",
+              "text": "Strong proficiency in TypeScript / Node.js and modern web frameworks",
+              "kind": "technical",
+              "priority": "must"
+            },
+            {
+              "id": "r2",
+              "text": "Experience designing and maintaining RESTful APIs and distributed systems",
+              "kind": "technical",
+              "priority": "must"
+            },
+            {
+              "id": "r3",
+              "text": "Solid understanding of database systems (SQL / NoSQL) and query optimization",
+              "kind": "technical",
+              "priority": "must"
+            },
+            {
+              "id": "r4",
+              "text": "Experience mentoring junior engineers and conducting constructive code reviews",
+              "kind": "behavioural",
+              "priority": "must"
+            },
+            {
+              "id": "r5",
+              "text": "Familiarity with containerization (Docker) and CI/CD deployment pipelines",
+              "kind": "technical",
+              "priority": "nice"
+            },
+            {
+              "id": "r6",
+              "text": "Knowledge of cloud infrastructure (AWS / GCP) and serverless workflows",
+              "kind": "domain",
+              "priority": "nice"
+            }
+          ]
+        },
+        "questions": [
+          {
+            "id": "q1",
+            "requirement_ids": [
+              "r1"
+            ],
+            "category": "technical",
+            "prompt": "Core technical interview assessment",
+            "answer_outline": "Provide key principles, practical examples, and trade-off evaluation.",
+            "difficulty": 2
+          },
+          {
+            "id": "q2",
+            "requirement_ids": [
+              "r4"
+            ],
+            "category": "behavioural",
+            "prompt": "Core behavioural interview assessment",
+            "answer_outline": "Provide key principles, practical examples, and trade-off evaluation.",
+            "difficulty": 2
+          },
+          {
+            "id": "q3",
+            "requirement_ids": [
+              "r1"
+            ],
+            "category": "system-design",
+            "prompt": "Core system-design interview assessment",
+            "answer_outline": "Provide key principles, practical examples, and trade-off evaluation.",
+            "difficulty": 2
+          },
+          {
+            "id": "q4",
+            "requirement_ids": [
+              "r1"
+            ],
+            "category": "company-fit",
+            "prompt": "Core company-fit interview assessment",
+            "answer_outline": "Provide key principles, practical examples, and trade-off evaluation.",
+            "difficulty": 2
+          },
+          {
+            "id": "q5",
+            "requirement_ids": [
+              "r2"
+            ],
+            "category": "technical",
+            "prompt": "How do you apply Experience designing and maintaining RESTful APIs and distributed systems in production?",
+            "answer_outline": "Explain practical methodology, key challenges, and demonstrable results.",
+            "difficulty": 2
+          },
+          {
+            "id": "q6",
+            "requirement_ids": [
+              "r3"
+            ],
+            "category": "technical",
+            "prompt": "How do you apply Solid understanding of database systems (SQL / NoSQL) and query optimization in production?",
+            "answer_outline": "Explain practical methodology, key challenges, and demonstrable results.",
+            "difficulty": 2
+          },
+          {
+            "id": "q7",
+            "requirement_ids": [
+              "r5"
+            ],
+            "category": "technical",
+            "prompt": "How do you apply Familiarity with containerization (Docker) and CI/CD deployment pipelines in production?",
+            "answer_outline": "Explain practical methodology, key challenges, and demonstrable results.",
+            "difficulty": 2
+          },
+          {
+            "id": "q8",
+            "requirement_ids": [
+              "r6"
+            ],
+            "category": "technical",
+            "prompt": "How do you apply Knowledge of cloud infrastructure (AWS / GCP) and serverless workflows in production?",
+            "answer_outline": "Explain practical methodology, key challenges, and demonstrable results.",
+            "difficulty": 2
+          }
+        ],
+        "flashcards": [
+          {
+            "id": "f1",
+            "front": "Flashcard on Strong proficiency in TypeScript / Node.js and modern web frameworks",
+            "back": "Core concept and definition overview.",
+            "requirement_ids": [
+              "r1"
+            ]
+          }
+        ],
+        "schedule": {
+          "days_available": 7,
+          "days": [
+            {
+              "day": 1,
+              "focus": "Core Architecture, System Design & High-Priority Technicals",
+              "question_ids": [
+                "q3",
+                "q1"
+              ],
+              "minutes": 55
+            },
+            {
+              "day": 2,
+              "focus": "Targeted Technical Mastery (Day 2)",
+              "question_ids": [
+                "q5"
+              ],
+              "minutes": 45
+            },
+            {
+              "day": 3,
+              "focus": "Targeted Technical Mastery (Day 3)",
+              "question_ids": [
+                "q6"
+              ],
+              "minutes": 45
+            },
+            {
+              "day": 4,
+              "focus": "Behavioral Competency Deep Dive & Leadership Principles",
+              "question_ids": [
+                "q2"
+              ],
+              "minutes": 45
+            },
+            {
+              "day": 5,
+              "focus": "Structured Domain Review & Practice (Day 5)",
+              "question_ids": [
+                "q4"
+              ],
+              "minutes": 45
+            },
+            {
+              "day": 6,
+              "focus": "Targeted Technical Mastery (Day 6)",
+              "question_ids": [
+                "q7"
+              ],
+              "minutes": 45
+            },
+            {
+              "day": 7,
+              "focus": "Final Polish, Company Fit & Mock Interview Review",
+              "question_ids": [
+                "q8"
+              ],
+              "minutes": 45
+            }
+          ]
+        },
+        "coverage": {
+          "uncovered_requirement_ids": [],
+          "passes": 2
+        }
+      },
+      "error": null
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+[
+  {
+    "id": "case-01",
+    "jd": "Senior Full-Stack Engineer\n\nWe are looking for a Senior Full-Stack Engineer with 5+ years of experience building modern web applications. You must be proficient in TypeScript, React, and Node.js, with hands-on experience designing REST and GraphQL APIs. Required: deep understanding of relational databases (PostgreSQL) and caching strategies (Redis). You will mentor junior engineers and participate in architectural reviews. Nice to have: familiarity with Kubernetes, Docker containerization, and AWS serverless architectures.",
+    "company_url": "https://example.com",
+    "days": 5
+  },
+  {
+    "id": "case-02",
+    "jd": "Backend Developer\nBuild Python APIs with FastAPI and PostgreSQL.",
+    "company_url": "https://example.com",
+    "days": 1
+  },
+  {
+    "id": "case-03",
+    "jd": "Lead Distributed Systems Architect\n\nRequirements:\n- Must have 8+ years designing high-throughput distributed systems\n- Deep knowledge of consensus algorithms (Raft, Paxos) and Kafka event streaming\n- Required experience leading incident response and system reliability\n- Excellent cross-functional leadership and executive presentation skills\n- Bonus: Go language proficiency and eBPF observability",
+    "company_url": "http://localhost:8099/acme/",
+    "days": 7
+  }
+]
