@@ -1,6 +1,6 @@
 import { Kit, PracticeSessionProgress, CardPracticeState } from '../types/kit';
 
-const API_BASE = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api';
+const API_BASE = process.env.NEXT_PUBLIC_API_URL || '/api';
 
 function getAuthHeaders(): Record<string, string> {
   const headers: Record<string, string> = {
