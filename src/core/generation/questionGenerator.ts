@@ -263,20 +263,35 @@ Return ONLY a valid JSON array:
       const items = Array.isArray(parsed) ? parsed : [parsed];
       const validRids = new Set(requirements.map((r) => r.id));
 
-      return items.map((fc, idx) => {
+      let cards = items.map((fc, idx) => {
         const rids = (fc.requirement_ids || []).filter((rid) => validRids.has(rid));
-        if (rids.length === 0) rids.push(requirements[0]?.id || 'r1');
+        if (rids.length === 0) rids.push(requirements[idx % requirements.length]?.id || 'r1');
 
         return {
           id: `f${idx + 1}`,
-          front: fc.front?.trim() || `Flashcard on ${requirements[idx % requirements.length]?.text}`,
-          back: fc.back?.trim() || 'Core concept and definition overview.',
+          front: fc.front?.trim() || `Core concepts: ${requirements[idx % requirements.length]?.text}`,
+          back: fc.back?.trim() || 'Key definitions, operational patterns, and implementation considerations.',
           requirement_ids: rids,
         };
       });
+
+      // If fewer than 4 cards, augment with cards covering the requirements
+      if (cards.length < 4 && requirements.length > 0) {
+        for (let i = cards.length; i < Math.min(6, Math.max(4, requirements.length)); i++) {
+          const req = requirements[i % requirements.length];
+          cards.push({
+            id: `f${i + 1}`,
+            front: `How do you apply and optimize: ${req.text}?`,
+            back: `Essential architectural principles, best practices, and trade-offs for ${req.text}.`,
+            requirement_ids: [req.id],
+          });
+        }
+      }
+
+      return cards;
     } catch {
       // Deterministic flashcard fallback
-      return requirements.slice(0, 4).map((req, idx) => ({
+      return requirements.slice(0, Math.max(4, requirements.length)).map((req, idx) => ({
         id: `f${idx + 1}`,
         front: `Key principles and definition of: ${req.text}`,
         back: `Core operational definitions, standard patterns, and implementation considerations for ${req.text}.`,

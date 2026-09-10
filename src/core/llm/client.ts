@@ -238,8 +238,55 @@ export class LLMClient {
   private generateMockResponse(messages: LLMMessage[], options: LLMOptions): string {
     const userPrompt = messages.map((m) => m.content).join('\n').toLowerCase();
 
-    // 1. Requirement Extraction
-    if (userPrompt.includes('requirement') || userPrompt.includes('job description') || userPrompt.includes('extract')) {
+    // 1. Flashcards (prioritized check)
+    if (userPrompt.includes('flashcard') || userPrompt.includes('flashcards')) {
+      return JSON.stringify([
+        {
+          id: 'f1',
+          front: 'How does Node.js handle asynchronous operations in the event loop?',
+          back: 'Libuv event loop offloads I/O to kernel or thread pool; microtasks (process.nextTick, Promises) run between phases.',
+          requirement_ids: ['r1'],
+        },
+        {
+          id: 'f2',
+          front: 'What is an Idempotency Key in REST API design?',
+          back: 'A unique client-sent token that prevents duplicate operations when a request is retried over the network.',
+          requirement_ids: ['r2'],
+        },
+        {
+          id: 'f3',
+          front: 'What are ACID transactions and when do you choose SQL over NoSQL?',
+          back: 'Atomicity, Consistency, Isolation, Durability. Use SQL when strict transactional integrity and relational joins are mandatory.',
+          requirement_ids: ['r3'],
+        },
+        {
+          id: 'f4',
+          front: 'How do you structure answers to behavioral interview questions?',
+          back: 'STAR Framework: Situation (context), Task (goal), Action (specific actions you took), Result (quantifiable impact and learning).',
+          requirement_ids: ['r4'],
+        },
+        {
+          id: 'f5',
+          front: 'What is the difference between Docker images and containers?',
+          back: 'An image is an immutable read-only template with instructions; a container is a running, isolated instance of that image.',
+          requirement_ids: ['r5'],
+        },
+        {
+          id: 'f6',
+          front: 'What is Horizontal Pod Autoscaling (HPA) in Kubernetes?',
+          back: 'Automatically scales the number of replica pods based on observed CPU utilization, memory metrics, or custom application metrics.',
+          requirement_ids: ['r6'],
+        },
+      ]);
+    }
+
+    // 2. Requirement Extraction
+    if (
+      userPrompt.includes('extract the structured role details') ||
+      userPrompt.includes('job description analyst') ||
+      userPrompt.includes('parse the following job description') ||
+      userPrompt.includes('extract requirements')
+    ) {
       return JSON.stringify({
         title: 'Software Engineer',
         seniority: 'Mid-Senior',
