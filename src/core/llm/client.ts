@@ -31,7 +31,7 @@ export class LLMClient {
 
   constructor() {
     this.provider = (process.env.LLM_PROVIDER || 'mock').toLowerCase();
-    this.model = process.env.LLM_MODEL || 'gemini-1.5-flash';
+    this.model = process.env.LLM_MODEL || 'gemini-2.5-flash';
 
     if (process.env.GEMINI_API_KEY) {
       this.geminiClient = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
@@ -125,7 +125,8 @@ export class LLMClient {
   }
 
   private async callGemini(messages: LLMMessage[], options: LLMOptions): Promise<string> {
-    if (!this.geminiClient) throw new Error('Gemini client not configured');
+    const apiKey = process.env.GEMINI_API_KEY;
+    if (!apiKey) throw new Error('Gemini API key not configured');
 
     const systemMsg = messages.find((m) => m.role === 'system')?.content || '';
     const userMsgs = messages.filter((m) => m.role !== 'system');
@@ -135,19 +136,60 @@ export class LLMClient {
       parts: [{ text: m.content }],
     }));
 
-    const modelInstance = this.geminiClient.getGenerativeModel({
-      model: this.model,
-      systemInstruction: systemMsg ? { role: 'system', parts: [{ text: systemMsg }] } : undefined,
-      generationConfig: {
-        temperature: options.temperature ?? 0.2,
-        maxOutputTokens: options.maxTokens ?? 4096,
-        responseMimeType: options.responseFormat === 'json' ? 'application/json' : 'text/plain',
-      },
-    });
+    const modelName = this.model.includes('gemini') ? this.model : 'gemini-2.5-flash';
 
-    const result = await modelInstance.generateContent({ contents });
-    const responseText = result.response.text();
-    return responseText;
+    // Direct REST API with ?key= query param (supports both legacy AIzaSy... and modern AQ.* keys)
+    try {
+      const url = `https://generativelanguage.googleapis.com/v1beta/models/${modelName}:generateContent?key=${apiKey}`;
+      const bodyPayload: any = {
+        contents,
+        generationConfig: {
+          temperature: options.temperature ?? 0.2,
+          maxOutputTokens: options.maxTokens ?? 4096,
+          responseMimeType: options.responseFormat === 'json' ? 'application/json' : 'text/plain',
+        },
+      };
+
+      if (systemMsg) {
+        bodyPayload.systemInstruction = {
+          role: 'system',
+          parts: [{ text: systemMsg }],
+        };
+      }
+
+      const res = await fetch(url, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(bodyPayload),
+      });
+
+      if (res.ok) {
+        const data: any = await res.json();
+        const candidate = data.candidates?.[0];
+        const textPart = candidate?.content?.parts?.[0]?.text;
+        if (textPart) return textPart;
+      }
+    } catch (restErr: any) {
+      console.warn('[LLMClient] Direct REST call encountered an issue, trying SDK fallback:', restErr.message);
+    }
+
+    // SDK fallback
+    if (this.geminiClient) {
+      const modelInstance = this.geminiClient.getGenerativeModel({
+        model: modelName,
+        systemInstruction: systemMsg ? { role: 'system', parts: [{ text: systemMsg }] } : undefined,
+        generationConfig: {
+          temperature: options.temperature ?? 0.2,
+          maxOutputTokens: options.maxTokens ?? 4096,
+          responseMimeType: options.responseFormat === 'json' ? 'application/json' : 'text/plain',
+        },
+      });
+
+      const result = await modelInstance.generateContent({ contents });
+      return result.response.text();
+    }
+
+    throw new Error('Gemini generation failed');
   }
 
   private async callGroq(messages: LLMMessage[], options: LLMOptions): Promise<string> {
