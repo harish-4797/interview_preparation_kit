@@ -29,10 +29,15 @@ export function createApp() {
     });
   });
 
-  // API Routes
+  // API Routes (mounted on both /api and root prefix for resilient serverless routing)
   app.use('/api/auth', authRoutes);
+  app.use('/auth', authRoutes);
+
   app.use('/api/kits', kitRoutes);
+  app.use('/kits', kitRoutes);
+
   app.use('/api/practice', practiceRoutes);
+  app.use('/practice', practiceRoutes);
 
   // 404 handler
   app.use((_req: Request, res: Response) => {
