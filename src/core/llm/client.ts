@@ -41,8 +41,8 @@ export class LLMClient {
     }
     this.openrouterKey = process.env.OPENROUTER_API_KEY || null;
 
-    // Auto-detect active provider if default is mock but an API key is present
-    if (this.provider === 'mock') {
+    // Auto-detect active provider only if LLM_PROVIDER is NOT explicitly configured and not in test environment
+    if (!process.env.LLM_PROVIDER && process.env.NODE_ENV !== 'test') {
       if (process.env.GEMINI_API_KEY) {
         this.provider = 'gemini';
       } else if (process.env.GROQ_API_KEY) {
